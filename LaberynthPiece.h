@@ -4,7 +4,19 @@
 #include "BaseObject.h"
 #include <string>
 #include <vector>
-//std::string PosiblePieces[10];
+enum class PIECES {
+	TOPLEFT = 0,
+	TOPRIGHT = 1,
+	BOTTOMLEFT = 2,
+	BOTTOMRIGHT = 3,
+	VERTICAL = 4,
+	HORYZONTAL = 5,
+	TLEFT = 6,
+	TRIGHT = 7,
+	TTOP = 8,
+	TBOTTOM = 9
+};
+extern std::string PosiblePieces[10];
 class LaberynthPiece : public BaseObject
 {
 public:
@@ -14,6 +26,7 @@ public:
 	LaberynthPiece(vec2d pos, vec2d size);
 	char GetCell(vec2i pos);
 protected:
-	std::string m_cell;
+	//std::string m_cell;
+	PIECES m_cell;
 };
 #endif
