@@ -4,9 +4,7 @@
 #include "BaseObject.h"
 #include <string>
 #include <vector>
-
 //std::string PosiblePieces[10];
-
 class LaberynthPiece : public BaseObject
 {
 public:
@@ -18,5 +16,4 @@ public:
 protected:
 	std::string m_cell;
 };
-
 #endif

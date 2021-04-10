@@ -10,6 +10,7 @@ public:
 	void Draw(SDL_Renderer* renderer);
 	void Update();
 	void Clean();
+	char GetCell(vec2d pos);
 protected:
 	vec2d m_number_pieces;
 	std::vector<LaberynthPiece*> m_pieces;

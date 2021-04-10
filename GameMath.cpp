@@ -4,7 +4,6 @@
 /*
 * Functions for vector of doubles. 
 */
-
 vec2d vec2d::operator+(const vec2d& vec)
 {
 	vec2d _vec;
@@ -110,11 +109,9 @@ vec2d vec2d::norm()
 	return _vec;
 }
 
-
 /**
 *	Functions for the implementation of the int vrctor.
 */
-
 vec2i vec2i::operator+(const vec2i& vec)
 {
 	vec2i _vec;

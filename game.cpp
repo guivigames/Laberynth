@@ -7,7 +7,7 @@ Game::Game()
     , m_pWindow(nullptr)
     , m_bGameOver(false)
     , m_nWidth(600)
-    , m_nHeight(600)
+    , m_nHeight(400)
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -70,7 +70,9 @@ void Game::HandleEvents()
 			case SDL_QUIT:
 				exit(0);
 				break;
-
+            case SDL_MOUSEBUTTONDOWN:
+                m_map->GetCell(vec2d{(double)event.button.x, (double)event.button.y});
+                break;
 			default:
 				break;
 		}
