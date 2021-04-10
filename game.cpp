@@ -57,7 +57,7 @@ void Game::Init(std::string title, int width, int height)
         SDL_Log("Unable to create renderer SDL: %s", SDL_GetError());
         exit(1);
     }
-    m_map = new GameMap(vec2d{ 1.0, 1.0}, vec2d{ (double)m_nWidth - 1.0, (double)m_nHeight - 1.0}, vec2d{ 10, 10 });
+    m_map = new GameMap(vec2d{ 100.0, 100.0}, vec2d{ (double) 30.0, (double) 30.0}, vec2d{ 7, 7});
 }
 // Handle Input Events
 void Game::HandleEvents()
