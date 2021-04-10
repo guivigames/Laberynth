@@ -71,7 +71,11 @@ void Game::HandleEvents()
 				exit(0);
 				break;
             case SDL_MOUSEBUTTONDOWN:
-                m_map->GetCell(vec2d{(double)event.button.x, (double)event.button.y});
+                {
+                    char cell;
+                    cell = m_map->GetCell(vec2d{ (double)event.button.x, (double)event.button.y});
+                    printf("Cell is: %c\n", cell);
+                }
                 break;
 			default:
 				break;

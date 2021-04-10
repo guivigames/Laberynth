@@ -70,7 +70,10 @@ LaberynthPiece::LaberynthPiece(vec2d pos, vec2d size)
 	m_cell	= PosiblePieces[dice];
 }
 
-std::string LaberynthPiece::GetCell()
+char LaberynthPiece::GetCell(vec2i pos)
 {
-	return std::string();
+	if (pos.y * 3 + pos.x < m_cell.size()) {
+		return m_cell[pos.y * 3 + pos.x];
+	}
+	return '\0';
 }

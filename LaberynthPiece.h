@@ -12,7 +12,7 @@ public:
 	void Update();
 	void Clean();
 	LaberynthPiece(vec2d pos, vec2d size);
-	std::string GetCell();
+	char GetCell(vec2i pos);
 protected:
 	std::string m_cell;
 };

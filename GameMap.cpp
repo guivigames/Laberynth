@@ -29,8 +29,14 @@ void GameMap::Clean()
 
 char GameMap::GetCell(vec2d pos)
 {
-	vec2d piece_pos = (pos - m_pos) / m_size;
-	printf("Cell piece position: %lf %lf\n", piece_pos.x, piece_pos.y);
-	return 0;
+	vec2d map_pos = (pos - m_pos);
+	vec2d piece_pos = map_pos / m_size;
+	piece_pos.x = (int)piece_pos.x % (int)m_size.x;
+	piece_pos.y = (int)piece_pos.y % (int)m_size.y;
+	vec2d cell_pos = map_pos - piece_pos * m_size;
+	cell_pos.x = (int)cell_pos.x / (int)10;
+	cell_pos.y = (int)cell_pos.y / (int)10;
+	//printf("Cell piece position: %.2lf %.2lf -- %.2lf %.2lf\n", piece_pos.x, piece_pos.y, cell_pos.x, cell_pos.y);
+	return m_pieces[piece_pos.y * m_number_pieces.x + piece_pos.x]->GetCell(cell_pos);
 }
 
