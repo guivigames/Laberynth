@@ -109,6 +109,7 @@
     <ClCompile Include="GameMath.cpp" />
     <ClCompile Include="LaberynthPiece.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
@@ -116,6 +117,7 @@
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameMath.h" />
     <ClInclude Include="LaberynthPiece.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
