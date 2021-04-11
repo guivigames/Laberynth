@@ -4,6 +4,7 @@
 #include "BaseObject.h"
 #include <string>
 #include <vector>
+
 enum class PIECES {
 	TOPLEFT = 0,
 	TOPRIGHT = 1,
@@ -24,6 +25,7 @@ public:
 	void Update();
 	void Clean();
 	LaberynthPiece(vec2d pos, vec2d size);
+	LaberynthPiece(vec2d pos, vec2d size, PIECES piece);
 	char GetCell(vec2i pos);
 protected:
 	//std::string m_cell;

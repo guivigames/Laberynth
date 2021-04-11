@@ -1,6 +1,6 @@
 #include "LaberynthPiece.h"
 
-static std::string PosiblePieces[10] =
+std::string PosiblePieces[10] =
 {
 	"###"
 	"#.."		// Top left corner
@@ -69,10 +69,16 @@ LaberynthPiece::LaberynthPiece(vec2d pos, vec2d size)
 	int dice	= rand() % 10;
 	m_cell = (PIECES) dice;// PosiblePieces[dice];
 }
-
+LaberynthPiece::LaberynthPiece(vec2d pos, vec2d size, PIECES piece)
+{
+	m_pos	= pos;
+	m_size	= size;
+	m_vel	= { 0, 0 };
+	m_cell = (PIECES) piece;// PosiblePieces[dice];
+}
 char LaberynthPiece::GetCell(vec2i pos)
 {
-	if (unsigned int (pos.y * 3 + pos.x) < PosiblePieces[(int)m_cell].size()) {
+	if (static_cast<unsigned int>(pos.y * 3 + pos.x) < PosiblePieces[(int)m_cell].size()) {
 		return  PosiblePieces[(int)m_cell][pos.y * 3 + pos.x];
 	}
 	return '\0';
