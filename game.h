@@ -14,6 +14,7 @@
 #include <string>
 #include <chrono>
 #include "GameMap.h"
+#include "Player.h"
 
 #define _DEBUG  ///< Defined for some debuging messages.
 
