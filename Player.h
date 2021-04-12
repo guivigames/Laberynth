@@ -3,14 +3,15 @@
 #define __PLAYER__
 #include "BaseObject.h"
 
-
 class Player : public BaseObject
 {
-private:
-    Player();
+public:
+    Player(vec2d pos, double radius);
     ~Player();
-    void Draw();
+    void Draw(SDL_Renderer* renderer);
     void Update();
     void Clean();
-}
+protected:
+    int m_nRadius;
+};
 #endif

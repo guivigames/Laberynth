@@ -110,6 +110,7 @@
     <ClCompile Include="LaberynthPiece.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SDLHelpFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="GameMath.h" />
     <ClInclude Include="LaberynthPiece.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SDLHelpFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

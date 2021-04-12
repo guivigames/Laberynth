@@ -30,7 +30,13 @@ private:
     int     m_nHeight;          ///< Height of hte main window.
     std::string m_strTitle;     ///< Game title.
 
-    GameMap *m_map;
+    /**
+    *   vector with all the objects in the game.
+    * First Object is map.
+    * Second is player.
+    */
+    //GameMap *m_map;
+    std::vector<BaseObject*> m_objects;
 #ifdef _DEBUG
     std::chrono::time_point<std::chrono::steady_clock> m_stdChrono;
     double m_nFPS;
@@ -39,7 +45,7 @@ private:
 public:
     ~Game();
     static Game* Instance();
-    void Init(std::string title = "The Game", int width = 600, int height = 400);
+    void Init(std::string title = "The Game", int width = 600, int height = 400, int cellSize = 30);
     void HandleEvents();
     void Update();
     void Draw();

@@ -33,7 +33,7 @@ Game* Game::Instance()
     return s_pInstance;
 }
 // Initialize the game engien
-void Game::Init(std::string title, int width, int height)
+void Game::Init(std::string title, int width, int height, int cellsize)
 {
     /* initialize random seed: */
     srand(time(NULL));
@@ -57,7 +57,10 @@ void Game::Init(std::string title, int width, int height)
         SDL_Log("Unable to create renderer SDL: %s", SDL_GetError());
         exit(1);
     }
-    m_map = new GameMap(vec2d{ 100.0, 100.0}, vec2d{ (double) 30.0, (double) 30.0}, vec2d{ 7, 7});
+    //m_map = new GameMap(vec2d{ 100.0, 100.0 }, vec2d{ (double)30.0, (double)30.0 }, vec2d{ 7, 7 });
+    double Onecell = cellsize / 3;
+    m_objects.push_back( new GameMap(vec2d{ 100.0, 100.0}, vec2d{ (double)cellsize, (double)cellsize }, vec2d{ 7, 7}));
+    m_objects.push_back(new Player(vec2d{ 100.0 + (Onecell + Onecell/2), 100.0 + (Onecell + Onecell/2) }, (Onecell / 2) - 2));
 }
 // Handle Input Events
 void Game::HandleEvents()
@@ -73,7 +76,8 @@ void Game::HandleEvents()
             case SDL_MOUSEBUTTONDOWN:
                 {
                     char cell;
-                    cell = m_map->GetCell(vec2d{ (double)event.button.x, (double)event.button.y});
+                    cell = ((GameMap*)m_objects[0])->GetCell(vec2d{ (double)event.button.x, (double)event.button.y});
+                    //cell = m_map->GetCell(vec2d{ (double)event.button.x, (double)event.button.y });
                     printf("Cell is: %c\n", cell);
                 }
                 break;
@@ -107,8 +111,10 @@ void Game::Draw()
 {
     SDL_SetRenderDrawColor(m_pRenderer, 96, 128, 255, 255);
 	SDL_RenderClear(m_pRenderer);
-
-    m_map->Draw(m_pRenderer);
+    //m_map->Draw(m_pRenderer);
+    
+    for (auto object: m_objects)
+        object->Draw(m_pRenderer);
 
     SDL_RenderPresent(m_pRenderer);
 }
