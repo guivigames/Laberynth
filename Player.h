@@ -11,6 +11,7 @@ public:
     void Draw(SDL_Renderer* renderer);
     void Update();
     void Clean();
+    int getRadius() { return m_nRadius; };
 protected:
     int m_nRadius;
 };

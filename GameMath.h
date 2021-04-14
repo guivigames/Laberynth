@@ -34,10 +34,10 @@ struct vec2g
 	
 	T mag() { return T(sqrt(x * x + y * y)); };
 	vec2g norm() { T r = (this->mag() != 0.0) ? (1 / mag()) : 0.0;  return vec2g(this->x * r, this->y * r); };
-	vec2g floor() { return vec2g(std::floor(x), std::floor(y)) };
-	vec2g ceil() { return vec2g( std::ceil(x), std::ceil(y)) };
-	vec2g min(const vec2g& vec) const { return vec2g( std::min(x, vec.x), std::min(y, vec.y)) };
-	vec2g max(const vec2g& vec) const { return vec2g( std::max(x, vec.x), std::max(y, vec.y)) };
+	vec2g floor() { return vec2g(std::floor(x), std::floor(y)); };
+	vec2g ceil() { return vec2g(std::ceil(x), std::ceil(y)); };
+	vec2g min(const vec2g& vec) const { return vec2g(std::min(x, vec.x), std::min(y, vec.y)); };
+	vec2g max(const vec2g& vec) const { return vec2g(std::max(x, vec.x), std::max(y, vec.y)); };
 
 	operator vec2g<int>() const { return { static_cast<int>(this->x), static_cast<int>(this->y) }; };
 	operator vec2g<unsigned int>() const { return { static_cast<unsigned int>(this->x), static_cast<unsigned int>(this->y) }; };

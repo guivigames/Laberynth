@@ -128,23 +128,23 @@ void Game::Update()
         vec2d vPotentaialPosition = pos + vel * m_nFPS;
 
         /// Collition Detection
-        /*vec2d vCurrentCell = pos.floor();
+        vec2d vCurrentCell = pos.floor();
         vec2d vTargetCell = vPotentaialPosition;
         vec2d vAreaTL = (vCurrentCell.min(vTargetCell) - vec2d(1, 1)).max({ 0, 0 });
-        vec2d vAreaBR = (vCurrentCell.max(vTargetCell) + vec2d(1, 1)).min(vWorldSize);
+        vec2d vAreaBR = (vCurrentCell.max(vTargetCell) + vec2d(1, 1)).min(m_board.m_size);
 
         vec2d vCell;
-        for (vCell.y = vAreaTL.y; vCell.y <= vAreaBR.y; vCell.y++)
+        for ( vCell.y = vAreaTL.y; vCell.y <= vAreaBR.y; vCell.y++)
         {
-            for (vCell.x = vAreaTL.x; vCell.x <= vAreaBR.x; vCell.x++)
+            for ( vCell.x = vAreaTL.x; vCell.x <= vAreaBR.x; vCell.x++)
             {
-                if (sWorldMap[vCell.y * vWorldSize.x + vCell.x] == '#')
+                if (((GameMap*)m_objects[0])->GetCell(vec2d{ vCell.x, vCell.y }) == '#')//sWorldMap[vCell.y * vWorldSize.x + vCell.x] == '#')
                 {
-                    olc::vf2d vNearestPoint;
-                    vNearestPoint.x = std::max(float(vCell.x), std::min(vPotentaialPosition.x, float(vCell.x + 1)));
-                    vNearestPoint.y = std::max(float(vCell.y), std::min(vPotentaialPosition.y, float(vCell.y + 1)));
-                    olc::vf2d vRayToNeares = vNearestPoint - vPotentaialPosition;
-                    float fOvelap = object.fRadius - vRayToNeares.mag();
+                    vec2d vNearestPoint;
+                    vNearestPoint.x = std::max(double(vCell.x), std::min(vPotentaialPosition.x, double(vCell.x + 1)));
+                    vNearestPoint.y = std::max(double(vCell.y), std::min(vPotentaialPosition.y, double(vCell.y + 1)));
+                    vec2d vRayToNeares = vNearestPoint - vPotentaialPosition;
+                    float fOvelap = ((Player*)m_objects[1])->getRadius() - vRayToNeares.mag();
                     if (std::isnan(fOvelap)) fOvelap = 0;
                     if (fOvelap > 0)
                     {
@@ -152,7 +152,7 @@ void Game::Update()
                     }
                 }
             }
-        }*/
+        }
 
 
         /// Update Position
