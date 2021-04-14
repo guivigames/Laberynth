@@ -8,6 +8,7 @@ Game::Game()
     , m_bGameOver(false)
     , m_nWidth(600)
     , m_nHeight(400)
+    , m_board( rect (vec2i(100, 100), vec2i(7, 7), 60))
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -33,7 +34,7 @@ Game* Game::Instance()
     return s_pInstance;
 }
 // Initialize the game engien
-void Game::Init(std::string title, int width, int height, int cellsize)
+void Game::Init(std::string title, int width, int height, rect board)
 {
     /* initialize random seed: */
     srand(time(NULL));
@@ -57,10 +58,12 @@ void Game::Init(std::string title, int width, int height, int cellsize)
         SDL_Log("Unable to create renderer SDL: %s", SDL_GetError());
         exit(1);
     }
+    m_board = board;
     //m_map = new GameMap(vec2d{ 100.0, 100.0 }, vec2d{ (double)30.0, (double)30.0 }, vec2d{ 7, 7 });
-    double Onecell = cellsize / 3;
-    m_objects.push_back( new GameMap(vec2d{ 100.0, 100.0}, vec2d{ (double)cellsize, (double)cellsize }, vec2d{ 7, 7}));
-    m_objects.push_back(new Player(vec2d{ 100.0 + (Onecell + Onecell/2), 100.0 + (Onecell + Onecell/2) }, (Onecell / 2) - 2));
+    double Onecell;
+    Onecell = m_board.m_piecesize / 3;
+    m_objects.push_back( new GameMap( m_board.m_pos, vec2d{ (double)m_board.m_piecesize, (double)m_board.m_piecesize }, m_board.m_pieces));
+    m_objects.push_back(new Player(m_board.m_pos + (Onecell + Onecell / 2)/*vec2d{ 100.0 + (Onecell + Onecell/2), 100.0 + (Onecell + Onecell/2) }*/, (Onecell / 2) - 2));
 }
 // Handle Input Events
 void Game::HandleEvents()
@@ -125,6 +128,32 @@ void Game::Update()
         vec2d vPotentaialPosition = pos + vel * m_nFPS;
 
         /// Collition Detection
+        /*vec2d vCurrentCell = pos.floor();
+        vec2d vTargetCell = vPotentaialPosition;
+        vec2d vAreaTL = (vCurrentCell.min(vTargetCell) - vec2d(1, 1)).max({ 0, 0 });
+        vec2d vAreaBR = (vCurrentCell.max(vTargetCell) + vec2d(1, 1)).min(vWorldSize);
+
+        vec2d vCell;
+        for (vCell.y = vAreaTL.y; vCell.y <= vAreaBR.y; vCell.y++)
+        {
+            for (vCell.x = vAreaTL.x; vCell.x <= vAreaBR.x; vCell.x++)
+            {
+                if (sWorldMap[vCell.y * vWorldSize.x + vCell.x] == '#')
+                {
+                    olc::vf2d vNearestPoint;
+                    vNearestPoint.x = std::max(float(vCell.x), std::min(vPotentaialPosition.x, float(vCell.x + 1)));
+                    vNearestPoint.y = std::max(float(vCell.y), std::min(vPotentaialPosition.y, float(vCell.y + 1)));
+                    olc::vf2d vRayToNeares = vNearestPoint - vPotentaialPosition;
+                    float fOvelap = object.fRadius - vRayToNeares.mag();
+                    if (std::isnan(fOvelap)) fOvelap = 0;
+                    if (fOvelap > 0)
+                    {
+                        vPotentaialPosition = vPotentaialPosition - vRayToNeares.norm() * fOvelap;
+                    }
+                }
+            }
+        }*/
+
 
         /// Update Position
         m_objects[1]->setPos(vPotentaialPosition);

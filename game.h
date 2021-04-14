@@ -18,6 +18,15 @@
 
 #define _DEBUG  ///< Defined for some debuging messages.
 
+struct rect {
+    rect(vec2i pos, vec2i pieces, int piecesize) { m_pos = pos; m_pieces = pieces; m_piecesize = piecesize; m_size = m_pieces * m_piecesize; };
+    vec2i m_pos;
+    vec2i m_pieces;
+    int m_piecesize;
+    vec2i m_size;
+};
+
+
 class Game 
 {
 private:
@@ -27,8 +36,9 @@ private:
 	SDL_Window      *m_pWindow;     ///< Pointer to the SDL Window.
     bool    m_bGameOver;        ///< Indicate if the game is still running.
     int     m_nWidth;           ///< Width of the main window.
-    int     m_nHeight;          ///< Height of hte main window.
-    std::string m_strTitle;     ///< Game title.
+    int     m_nHeight;          ///< Height of hte main window.    
+    std::string m_strTitle;     /// Game title.
+    rect    m_board;        /// Board size.
 
     //Uint8* m_keystate;
     /**
@@ -46,7 +56,7 @@ private:
 public:
     ~Game();
     static Game* Instance();
-    void Init(std::string title = "The Game", int width = 600, int height = 400, int cellSize = 30);
+    void Init(std::string title = "The Game", int width = 600, int height = 400, rect board = rect(vec2i(100, 100), vec2i(7, 7), 60));
     void HandleEvents();
     void Update();
     void Draw();

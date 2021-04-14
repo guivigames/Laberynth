@@ -5,7 +5,7 @@ compile in linux: g++ -std=c++17 game.cpp main.cpp -o game `pkg-config --cflags 
 #include "GameMath.h"
 int main(int argc, char *argv[])
 {
-    TheGame::Instance()->Init("Laberynth", 800, 600, 60);
+    TheGame::Instance()->Init("Laberynth", 800, 600);
     while (TheGame::Instance()->IsGameOver())
     {
         TheGame::Instance()->HandleEvents();
