@@ -4,7 +4,7 @@
 /*
 * Functions for vector of doubles. 
 */
-vec2d vec2d::operator+(const vec2d& vec)
+/*vec2d vec2d::operator+(const vec2d& vec)
 {
 	vec2d _vec;
 	_vec.x = this->x + vec.x;
@@ -104,15 +104,15 @@ vec2d vec2d::norm()
 	vec2d _vec;
 	double mag;
 	mag = this->mag();	
-	_vec.x = this->x / mag;
-	_vec.y = this->y / mag;
+	_vec.x = (mag == 0.0) ? 0.0 : this->x / mag;
+	_vec.y = (mag == 0.0) ? 0.0 : this->y / mag;
 	return _vec;
 }
 
 /**
 *	Functions for the implementation of the int vrctor.
 */
-vec2i vec2i::operator+(const vec2i& vec)
+/*vec2i vec2i::operator+(const vec2i& vec)
 {
 	vec2i _vec;
 	_vec.x = this->x + vec.x;
@@ -216,3 +216,4 @@ vec2d vec2i::norm()
 	_vec.y = this->y / mag;
 	return _vec;
 }
+*/

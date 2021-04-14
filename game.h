@@ -30,6 +30,7 @@ private:
     int     m_nHeight;          ///< Height of hte main window.
     std::string m_strTitle;     ///< Game title.
 
+    //Uint8* m_keystate;
     /**
     *   vector with all the objects in the game.
     * First Object is map.

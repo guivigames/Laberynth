@@ -75,12 +75,17 @@ void Game::HandleEvents()
 				break;
             case SDL_MOUSEBUTTONDOWN:
                 {
-                    char cell;
-                    cell = ((GameMap*)m_objects[0])->GetCell(vec2d{ (double)event.button.x, (double)event.button.y});
+                    //char cell;
+                    //cell = ((GameMap*)m_objects[0])->GetCell(vec2d{ (double)event.button.x, (double)event.button.y});
                     //cell = m_map->GetCell(vec2d{ (double)event.button.x, (double)event.button.y });
-                    printf("Cell is: %c\n", cell);
+                    //printf("Cell is: %c\n", cell);
                 }
                 break;
+            //case SDL_KEYDOWN:
+            //    printf("%d\n", event.key.keysym.sym);
+            //    break;
+            //case SDL_KEYUP:
+            //    break;
 			default:
 				break;
 		}
@@ -89,6 +94,7 @@ void Game::HandleEvents()
 // Update the game
 void Game::Update()
 {
+    
 
 #ifdef _DEBUG   
     ///< Updating the window title to display the lapsed time since last update.
@@ -103,8 +109,26 @@ void Game::Update()
         Line below could be uncommented to havea ~constant framerate but never a 
         good idea to use a delay. Better would be to use m_nFPS to adjust movements
     */
-    //SDL_Delay((1000.0/60.0)-m_nFPS);      
+    //SDL_Delay((1000.0/60.0)-m_nFPS);   
 #endif
+    const Uint8* m_keystate = SDL_GetKeyboardState(0);
+    if (m_keystate != NULL) {
+        
+        /// Movement Calculation
+        vec2d vel{ 0.0, 0.0 };
+        vec2d pos = m_objects[1]->getPos();
+        if (m_keystate[SDL_SCANCODE_W]) vel += { 0.0f, -1.0f};
+        if (m_keystate[SDL_SCANCODE_S]) vel += { 0.0f, 1.0f};
+        if (m_keystate[SDL_SCANCODE_A]) vel += {-1.0f, 0.0f};
+        if (m_keystate[SDL_SCANCODE_D]) vel += { 1.0f, 0.0f};
+        vel = vel.norm() * 100;
+        vec2d vPotentaialPosition = pos + vel * m_nFPS;
+
+        /// Collition Detection
+
+        /// Update Position
+        m_objects[1]->setPos(vPotentaialPosition);
+    }
 }
 // Redraw the game state.
 void Game::Draw()
