@@ -124,39 +124,42 @@ void Game::Update()
         if (m_keystate[SDL_SCANCODE_S]) vel += { 0.0f, 1.0f};
         if (m_keystate[SDL_SCANCODE_A]) vel += {-1.0f, 0.0f};
         if (m_keystate[SDL_SCANCODE_D]) vel += { 1.0f, 0.0f};
-        vel = vel.norm() * 100;
-        vec2d vPotentaialPosition = pos + vel * m_nFPS;
 
-        /// Collition Detection
-        vec2d vCurrentCell = pos.floor();
-        vec2d vTargetCell = vPotentaialPosition;
-        vec2d vAreaTL = (vCurrentCell.min(vTargetCell) - vec2d(1, 1)).max({ 0, 0 });
-        vec2d vAreaBR = (vCurrentCell.max(vTargetCell) + vec2d(1, 1)).min(m_board.m_size);
+        if (vel.x != 0.0 || vel.y != 0.0) {
+            vel = vel.norm() * 100;
+            vec2d vPotentaialPosition = pos + vel * m_nFPS;
 
-        vec2d vCell;
-        for ( vCell.y = vAreaTL.y; vCell.y <= vAreaBR.y; vCell.y++)
-        {
-            for ( vCell.x = vAreaTL.x; vCell.x <= vAreaBR.x; vCell.x++)
+            /// Collition Detection
+            vec2d vCurrentCell = pos.floor();
+            vec2d vTargetCell = vPotentaialPosition;
+            vec2d vAreaTL = (vCurrentCell.min(vTargetCell) - vec2d(1, 1)).max(m_board.m_pos);
+            vec2d vAreaBR = (vCurrentCell.max(vTargetCell) + vec2d(1, 1)).min(m_board.m_size);
+
+            vec2d vCell;
+            for (vCell.y = vAreaTL.y; vCell.y <= vAreaBR.y; vCell.y += 1)
             {
-                if (((GameMap*)m_objects[0])->GetCell(vec2d{ vCell.x, vCell.y }) == '#')//sWorldMap[vCell.y * vWorldSize.x + vCell.x] == '#')
+                for (vCell.x = vAreaTL.x; vCell.x <= vAreaBR.x; vCell.x += 1)
                 {
-                    vec2d vNearestPoint;
-                    vNearestPoint.x = std::max(double(vCell.x), std::min(vPotentaialPosition.x, double(vCell.x + 1)));
-                    vNearestPoint.y = std::max(double(vCell.y), std::min(vPotentaialPosition.y, double(vCell.y + 1)));
-                    vec2d vRayToNeares = vNearestPoint - vPotentaialPosition;
-                    float fOvelap = ((Player*)m_objects[1])->getRadius() - vRayToNeares.mag();
-                    if (std::isnan(fOvelap)) fOvelap = 0;
-                    if (fOvelap > 0)
+                    if (((GameMap*)m_objects[0])->GetCell(vec2d{ vCell.x, vCell.y }) == '#')//sWorldMap[vCell.y * vWorldSize.x + vCell.x] == '#')
                     {
-                        vPotentaialPosition = vPotentaialPosition - vRayToNeares.norm() * fOvelap;
+                        vec2d vNearestPoint;
+                        vNearestPoint.x = std::max(double(vCell.x), std::min(vPotentaialPosition.x, double(vCell.x + 20)));
+                        vNearestPoint.y = std::max(double(vCell.y), std::min(vPotentaialPosition.y, double(vCell.y + 20)));
+                        vec2d vRayToNeares = vNearestPoint - vPotentaialPosition;
+                        float fOvelap = ((Player*)m_objects[1])->getRadius() - vRayToNeares.mag();
+                        if (std::isnan(fOvelap)) fOvelap = 0;
+                        if (fOvelap > 0)
+                        {
+                            vPotentaialPosition = vPotentaialPosition - vRayToNeares.norm() * fOvelap;
+                        }
                     }
                 }
             }
+
+
+            /// Update Position
+            m_objects[1]->setPos(vPotentaialPosition);
         }
-
-
-        /// Update Position
-        m_objects[1]->setPos(vPotentaialPosition);
     }
 }
 // Redraw the game state.
